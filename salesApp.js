@@ -19,21 +19,18 @@ for (var i = 0; i < 15; i++) {
   var avgFirstandPike = getRandomInt(firstandPike.min,firstandPike.max);
   // console.log('Random number of customers,', avgFirstandPike);
   var pikeCookies = avgFirstandPike * firstandPike.avgCookies;
-  // Math.ceil(pikeCookies)
+  Math.round(pikeCookies)
   // console.log(i + 6,'am, ', 'Avg cookies per hour', pikeCookies);
   firstandPike.numOfCookies.push(pikeCookies);
 }
 var totalcookies = 0;
-for (var i = 0; i< firstandPike.numOfCookies.length;i++){
-  totalcookies = totalcookies + firstandPike.numOfCookies[i];
-}
-
 var cookiesUl = document.getElementById('cookies');
 var cookiesLi;
 for (var i = 0; i < firstandPike.numOfCookies.length; i++){
+  totalcookies = totalcookies + firstandPike.numOfCookies[i];
   cookiesLi = document.createElement('li');
   cookiesLi.setAttribute('class','firstandPike.numOfCookies');
-  cookiesLi.textContent = hours[i] + ' ' + firstandPike.numOfCookies[i];
+  cookiesLi.textContent = hours[i] + ' ' + firstandPike.numOfCookies[i].toFixed(2) + ' cookies.';
   cookiesUl.appendChild(cookiesLi);
 }
 cookiesLi.textContent = 'Total number of cookies: ' + totalcookies
