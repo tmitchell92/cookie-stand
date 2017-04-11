@@ -7,20 +7,8 @@
   box-sizing: border-box;
   font-weight: normal;
 }
-
-html, body {
-  height: 100%;
-  float:right;
-  background-color: salmon;
-}
-
-#box1{
-  float:left;
-  background-color: green;
-}
-#box2{
-  float:left;
-  background-color: red;
+table, table * {
+  border: 1px solid black;
 }
 .clearfix::after {
     content: "";
