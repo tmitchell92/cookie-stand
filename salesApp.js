@@ -73,13 +73,61 @@ for (var i = 0; i < 15; i++) {
 }
 
 var totalcookies = 0;
-var firstandPikeUl = document.getElementById('cookies');
+var firstandPikeUl = document.getElementById('firstandPike');
 var firstandPikeLi;
-for (var i = 0; i < firstandPike.numOfCookies.length; i++){
+for (var i = 0; i < 15; i++){
   totalcookies = totalcookies + firstandPike.numOfCookies[i];
   firstandPikeLi = document.createElement('li');
   firstandPikeLi.setAttribute('class','firstandPike.numOfCookies');
   firstandPikeLi.textContent = hours[i] + ' ' + firstandPike.numOfCookies[i].toFixed(2) + ' cookies.'
   firstandPikeUl.appendChild(firstandPikeLi);
 }
-cookiesLi.textContent = 'Total number of cookies: ' + totalcookies
+firstandPikeLi.textContent = 'Total number of cookies: ' + totalcookies
+
+totalcookies = 0;
+var seaTacAirportUl = document.getElementById('seaTacAirport');
+var seaTacAirportLi;
+for (var i = 0; i < 15; i++){
+  totalcookies = totalcookies + seaTacAirport.numOfCookies[i];
+  seaTacAirportLi = document.createElement('li');
+  seaTacAirportLi.setAttribute('class','firstandPike.numOfCookies');
+  seaTacAirportLi.textContent = hours[i] + ' ' + seaTacAirport.numOfCookies[i].toFixed(2) + ' cookies.'
+  seaTacAirportUl.appendChild(seaTacAirportLi);
+}
+seaTacAirportLi.textContent = 'Total number of cookies: ' + totalcookies
+
+totalcookies = 0;
+var seattleCenterUl = document.getElementById('seattleCenter');
+var seattleCenterLi;
+for (var i = 0; i < 15; i++){
+  totalcookies = totalcookies + seattleCenter.numOfCookies[i];
+  seattleCenterLi = document.createElement('li');
+  seattleCenterLi.setAttribute('class','seattleCenter.numOfCookies');
+  seattleCenterLi.textContent = hours[i] + ' ' + seattleCenter.numOfCookies[i].toFixed(2) + ' cookies.'
+  seattleCenterUl.appendChild(seattleCenterLi);
+}
+seattleCenterLi.textContent = 'Total number of cookies: ' + totalcookies
+
+totalcookies = 0;
+var capitolHillUl = document.getElementById('capitolHill');
+var capitolHillLi;
+for (var i = 0; i < 15; i++){
+  totalcookies = totalcookies + capitolHill.numOfCookies[i];
+  capitolHillLi = document.createElement('li');
+  capitolHillLi.setAttribute('class','capitolHill.numOfCookies');
+  capitolHillLi.textContent = hours[i] + ' ' + capitolHill.numOfCookies[i].toFixed(2) + ' cookies.'
+  capitolHillUl.appendChild(capitolHillLi);
+}
+capitolHillLi.textContent = 'Total number of cookies: ' + totalcookies
+
+totalcookies = 0;
+var alkiUl = document.getElementById('alki');
+var alkiLi;
+for (var i = 0; i < 15; i++){
+  totalcookies = totalcookies + alki.numOfCookies[i];
+  alkiLi = document.createElement('li');
+  alkiLi.setAttribute('class','alki.numOfCookies');
+  alkiLi.textContent = hours[i] + ' ' + alki.numOfCookies[i].toFixed(2) + ' cookies.'
+  alkiUl.appendChild(alkiLi);
+}
+alkiLi.textContent = 'Total number of cookies: ' + totalcookies
