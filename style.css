@@ -1,1 +1,28 @@
-/* reset /*
+/* reset */
+
+* {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  float:right;
+  background-color: salmon;
+}
+
+#box1{
+  float:left;
+  background-color: green;
+}
+#box2{
+  float:left;
+  background-color: red;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
