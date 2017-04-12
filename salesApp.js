@@ -58,6 +58,12 @@ for (var i = 0; i < stores.length; i++){
   stores[i].numOfCookies.push(newCookiesHour)
 }
 
+/* This creates the totals of each hour. */
+var totals = [];
+for (var i = 0; i < 15; i++){
+  totals[i] = stores[0].numOfCookies[i] + stores[1].numOfCookies[i] + stores[2].numOfCookies[i] + stores[3].numOfCookies[i] + stores[4].numOfCookies[i];
+}
+
 /*This creates empty cell for the heading and the table itself.*/
 var table = document.createElement('table');
 var tableHead= document.createElement('th');
@@ -90,7 +96,7 @@ StoreName.prototype.createRow = function (){
     var text2 = document.createTextNode(this.numOfCookies[i]);
     td2.appendChild(text2);
     tr.appendChild(td2);
-    table.appendChild(tr);
+    table.append(tr);
   }
   document.body.appendChild(table);
 }
@@ -101,3 +107,15 @@ airportStore.createRow();
 centerStore.createRow();
 capitolStore.createRow();
 alkiStore.createRow();
+
+// This creates the totals row.
+var td4 = document.createElement('td')
+var text4 = document.createTextNode('Totals')
+td4.appendChild(text4)
+table.appendChild(td4)
+for (i=0; i < 15; i++){
+var td3 = document.createElement('td')
+var text3 = document.createTextNode(totals[i])
+td3.appendChild(text3)
+table.appendChild(td3)
+}
