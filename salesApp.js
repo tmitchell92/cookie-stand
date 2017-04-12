@@ -44,6 +44,10 @@ var capitolStore = new StoreName('Seattle Capitol',20,38,2.3);
 var alkiStore = new StoreName('Alki', 2,16,4.6);
 var stores = [pikeStore, airportStore, centerStore, capitolStore, alkiStore]
 
+// Stores.prototype.addLocation = function(name,min,max,avgCookies){
+//   var locationName = new StoreName(name,min,max,avgCookies);
+//   this.stores.push(locationName);
+// }
 /* This function generates the number of cookies per hour */
 function GenStoreCookies(stores){
   for (var i = 0; i < 15; i++){
@@ -73,7 +77,7 @@ th.appendChild(txt);
 table.append(th);
 
 /*This creates the hours cells for the heading */
-StoreName.prototype.createTableHead = function (){
+StoreName.prototype.tableHeadCreate = function (){
   for (var i = 0; i < 15; i++){
     var th = document.createElement('th');
     var txt = document.createTextNode(hours(i + 6));
@@ -83,7 +87,7 @@ StoreName.prototype.createTableHead = function (){
 }
 
 /* This creates the rows for the table and appends them. */
-StoreName.prototype.createRow = function (){
+StoreName.prototype.rowCreate = function (){
   var text4 = document.createTextNode('');
   table.appendChild(text4);
   var tr = document.createElement('tr');
@@ -101,12 +105,12 @@ StoreName.prototype.createRow = function (){
   document.body.appendChild(table);
 }
 
-pikeStore.createTableHead();
-pikeStore.createRow();
-airportStore.createRow();
-centerStore.createRow();
-capitolStore.createRow();
-alkiStore.createRow();
+pikeStore.tableHeadCreate();
+pikeStore.rowCreate();
+airportStore.rowCreate();
+centerStore.rowCreate();
+capitolStore.rowCreate();
+alkiStore.rowCreate();
 
 // This creates the totals row.
 var td4 = document.createElement('td')
@@ -119,3 +123,33 @@ var text3 = document.createTextNode(totals[i])
 td3.appendChild(text3)
 table.appendChild(td3)
 }
+
+function handleLocationCreateSubmit(event){
+  // stop the browser from reloading
+  event.preventDefault();
+
+  // event.target is always whatever element you added the EventListener to ('aka productCreateFrom')
+  var form = event.target;
+
+  // grab the values
+  var locationName = form.locationName.value;
+  var minCustomers = form.locationMinCustomers.value;
+  var maxCustomers = form.locationMaxCustomers.value;
+  var avgCookies = form.locationAvgCookiesSold.value;
+
+  // then clear the values
+  form.locationName.value = '';
+  form.locationMinCustomers.value = '';
+  form.locationMaxCustomers.value = '';
+  form.locationAvgCookiesSold.value = '';
+
+/* This is creating a new store out of the inputs given from user */
+  var storeName = window[locationName,minCustomers,maxCustomers,avgCookies];
+  var newLocation = new StoreName(locationName,minCustomers,maxCustomers,avgCookies);
+  console.log(newLocation)
+  GenStoreCookies(newLocation)
+  newLocation.rowCreate()
+}
+
+var locationCreateForm = document.getElementById('location-create');
+locationCreateForm.addEventListener('submit', handleLocationCreateSubmit)
