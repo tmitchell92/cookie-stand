@@ -89,8 +89,8 @@ StoreName.prototype.createRow = function (){
   var tr = document.createElement('tr');
   var text1 = document.createTextNode(this.title);
   var td1 = document.createElement('td');
-  tr.appendChild(td1);
   td1.appendChild(text1);
+  tr.appendChild(td1);
   for (var i = 0; i < 15; i++){
     var td2 = document.createElement('td');
     var text2 = document.createTextNode(this.numOfCookies[i]);
