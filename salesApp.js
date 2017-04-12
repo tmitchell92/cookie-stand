@@ -50,18 +50,34 @@ function GenStoreCookies(stores){
 for (var i = 0; i < stores.length; i++){
   var newCookiesHour = GenStoreCookies(stores[i])
   stores[i].numOfCookies.push(newCookiesHour)
-
 }
 
-// var theTable = document.getElementById('tableId');
-// for( var x = 0; x < theTable.tHead.rows.length; x++ ) {
-//   var y = document.createElement('td');
-//   y.appendChild(document.createTextNode('Thead cell text'));
-//   theTable.tHead.rows[x].appendChild(y);
+var table = document.createElement('table');
+var tableHead= document.createElement('th');
+var th = document.createElement('th');
+var txt = document.createTextNode(' ');
+th.appendChild(txt);
+table.append(th);
 
+StoreName.prototype.createTableHead = function (){
+  // var tableHead= document.createElement('th');
+  var th = document.createElement('th');
+  var txt = document.createTextNode(this.title);
+  th.appendChild(txt);
+  table.append(th);
+  }
+
+pikeStore.createTableHead();
+airportStore.createTableHead();
+centerStore.createTableHead();
+capitolStore.createTableHead();
+alkiStore.createTableHead();
 
 StoreName.prototype.createRow = function (){
-  var table = document.createElement('table');
+  var text4 = document.createTextNode('');
+  // var text3 = document.createTextNode(pikeStore.title);
+  // table.appendChild(text3);
+  table.appendChild(text4);
   for (var i = 0; i < 15; i++){
     var tr = document.createElement('tr');
     var td1 = document.createElement('td');
@@ -75,10 +91,24 @@ StoreName.prototype.createRow = function (){
     td2.appendChild(text2);
     tr.appendChild(td1);
     tr.appendChild(td2);
-
     table.appendChild(tr);
   }
   document.body.appendChild(table);
 }
 pikeStore.createRow();
-airportStore.createRow();
+
+StoreName.prototype.addRow = function () {
+  var table = document.getElementById('table');
+  // var tableRef = document.getElementById('table');
+  for (var i = 0; i < 15; i++){
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    var text1 = document.createTextNode('hi');
+    td.appendChild(text1);
+    // tr.appendChild(td);
+    console.log(tr)
+    table.appendChild(td);
+}
+document.body.appendChild(table)
+}
+airportStore.addRow();
