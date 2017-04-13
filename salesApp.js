@@ -15,7 +15,7 @@ function hours(hour){
     hour = (hour - 12) + 'pm'
   }
   return hour;
-}
+};
 
 /*This function creates a random number within the range given. */
 function getRandomInt(min,max) {
@@ -23,7 +23,7 @@ function getRandomInt(min,max) {
   max = Math.floor(max);
   var total = Math.floor(Math.random() * (max - min) + min);
   return Math.floor(total);
-}
+};
 
 /* This is a constructor to create a new object per store */
 function StoreName(name,min,max,avgCookies){
@@ -35,7 +35,7 @@ function StoreName(name,min,max,avgCookies){
   this.closehour = 20;
   this.numOfCookies = [];
   this.totalsStore = 0;
-}
+};
 
 /* This uses the constructor to create stores, and an array to store the stores. */
 var pikeStore = new StoreName('1st and Pike',23,65,6.3);
@@ -72,13 +72,14 @@ function totalsCreate(){
   }
 };
 
+/* This function genereates the totals for all the stores */
 function totalsAllStores(){
   var total = 0;
   for (var x = 0; x < stores.length; x++){
     total = total + stores[x].totalsStore;
   }
   return total;
-}
+};
 
 /*This creates empty cell for the heading and the table itself.*/
 var table = document.createElement('table');
@@ -100,13 +101,14 @@ tr.appendChild(th);
     var txt = document.createTextNode(hours(i + 6));
     th.appendChild(txt);
     tr.append(th);
-  }
+  };
 
 /*This creates the totals for each store of the day */
 var totalsHead = document.createElement('th');
 var totalsHeadTxt = document.createTextNode('Daily Store Totals');
 totalsHead.appendChild(totalsHeadTxt);
 tr.appendChild(totalsHead);
+
 
 /* This creates the rows for the table and appends them. */
 StoreName.prototype.rowCreate = function (){
@@ -128,8 +130,6 @@ StoreName.prototype.rowCreate = function (){
   totals.appendChild(totalsNum);
   tr.appendChild(totals);
 };
-
-
 
 /* This creates the table.*/
 function tableCreate(){
@@ -155,7 +155,7 @@ function totalsRowCreate(){
   var txt = document.createTextNode(totals[i]);
   td.appendChild(txt);
   tr.appendChild(td);
-};
+}
   var total = totalsAllStores()
   var td = document.createElement('td');
   var txt = document.createTextNode(total);
@@ -177,7 +177,7 @@ function handleLocationCreateSubmit(event){
   var avgCookies = form.locationAvgCookiesSold.value;
 
   // then clear the values
-function clearTable(){
+    function clearTable(){
   form.locationName.value = '';
   form.locationMinCustomers.value = '';
   form.locationMaxCustomers.value = '';
@@ -187,19 +187,19 @@ function clearTable(){
 /* This is creating a new store out of the inputs given from user */
   var storeName = window[locationName,minCustomers,maxCustomers,avgCookies];
   var newLocation = new StoreName(locationName,minCustomers,maxCustomers,avgCookies);
-  stores.push(newLocation)
-  console.log(newLocation)
-  GenStoreCookies(newLocation)
-  totalsCreate()
-  newLocation.rowCreate()
-  totalsRowCreate()
-  clearTable()
+  stores.push(newLocation);
+  console.log(newLocation);
+  GenStoreCookies(newLocation);
+  totalsCreate();
+  newLocation.rowCreate();
+  totalsRowCreate();
+  clearTable();
 }
 
 /* This creates the starting table */
-tableCreate()
-totalsCreate()
-totalsRowCreate()
+tableCreate();
+totalsCreate();
+totalsRowCreate();
 
 var locationCreateForm = document.getElementById('location-create');
-locationCreateForm.addEventListener('submit', handleLocationCreateSubmit)
+locationCreateForm.addEventListener('submit', handleLocationCreateSubmit);

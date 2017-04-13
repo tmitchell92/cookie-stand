@@ -7,16 +7,20 @@
   box-sizing: border-box;
   font-weight: normal;
   max-width: 960px;
-  background-color: green;
   font-family: Courier;
 }
 
+body {
+  background: linear-gradient(135deg, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
 h1 {
+  font-family: impact;
   text-align: center;
   font-style: italic;
   font-weight: bold;
-
 }
+
 #app {
   padding: 20px;
   width: 250px;
@@ -29,10 +33,10 @@ table, table * {
 
 img {
     background-position: center;
-    height: 200px;
+    height: 250px;
     width: 100%;
     box-sizing: border-box;
-    background-color: red;
+    background: linear-gradient(135deg, #e28080 0%,#b46a6a 50%,#de6767 51%,#df9c9c 100%);
 }
 
 input[type="text"], input[type="number"] {
@@ -61,10 +65,12 @@ table {
 th, tr {
   border: 1px solid black;
   text-align: center;
-  background-color: white;
+  font-weight: bold;
+  background-color: #e28080;
   padding: 5px;
 
 }
+
 td {
   border: 1px solid black;
   text-align: center;
