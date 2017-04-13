@@ -104,7 +104,7 @@ tr.appendChild(th);
 
 /*This creates the totals for each store of the day */
 var totalsHead = document.createElement('th');
-var totalsHeadTxt = document.createTextNode('Totals');
+var totalsHeadTxt = document.createTextNode('Daily Store Totals');
 totalsHead.appendChild(totalsHeadTxt);
 tr.appendChild(totalsHead);
 
