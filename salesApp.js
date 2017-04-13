@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*This function creates hours and gives them 'am' or 'pm'. */
 function hours(hour){
@@ -12,10 +12,10 @@ function hours(hour){
     hour = '12pm';
   }
   else {
-    hour = (hour - 12) + 'pm'
+    hour = (hour - 12) + 'pm';
   }
   return hour;
-};
+}
 
 /*This function creates a random number within the range given. */
 function getRandomInt(min,max) {
@@ -23,7 +23,7 @@ function getRandomInt(min,max) {
   max = Math.floor(max);
   var total = Math.floor(Math.random() * (max - min) + min);
   return Math.floor(total);
-};
+}
 
 /* This is a constructor to create a new object per store */
 function StoreName(name,min,max,avgCookies){
@@ -35,7 +35,7 @@ function StoreName(name,min,max,avgCookies){
   this.closehour = 20;
   this.numOfCookies = [];
   this.totalsStore = 0;
-};
+}
 
 /* This uses the constructor to create stores, and an array to store the stores. */
 var pikeStore = new StoreName('1st and Pike',23,65,6.3);
@@ -52,25 +52,25 @@ function GenStoreCookies(stores){
     stores.numOfCookies.push(cookiesPerHour);
     stores.totalsStore = stores.totalsStore + cookiesPerHour;
   }
-};
+}
 
 /* This generates the number of cookies per hour for each store */
 for (var i = 0; i < stores.length; i++){
-  var newCookiesHour = GenStoreCookies(stores[i])
-  stores[i].numOfCookies.push(newCookiesHour)
-};
+  var newCookiesHour = GenStoreCookies(stores[i]);
+  stores[i].numOfCookies.push(newCookiesHour);
+}
 
 /* This creates the totals of each hour. */
 var totals = [];
 function totalsCreate(){
-  totals = []
+  totals = [];
   for (var i = 0; i < 15; i++){
-    var hourTotals = 0
+    var hourTotals = 0;
     for(var x = 0; x < stores.length; x++)
-    hourTotals += stores[x].numOfCookies[i]
-    totals.push(hourTotals)
+      hourTotals += stores[x].numOfCookies[i];
+    totals.push(hourTotals);
   }
-};
+}
 
 /* This function genereates the totals for all the stores */
 function totalsAllStores(){
@@ -79,7 +79,7 @@ function totalsAllStores(){
     total = total + stores[x].totalsStore;
   }
   return total;
-};
+}
 
 /*This creates empty cell for the heading and the table itself.*/
 var table = document.createElement('table');
@@ -96,12 +96,12 @@ tableHead.appendChild(tr);
 tr.appendChild(th);
 
 /*This creates the hours cells for the heading */
-  for (var i = 0; i < 15; i++){
-    var th = document.createElement('th');
-    var txt = document.createTextNode(hours(i + 6));
-    th.appendChild(txt);
-    tr.append(th);
-  };
+for(var z = 0; z < 15; z++){
+  th = document.createElement('th');
+  var txt = document.createTextNode(hours(z + 6));
+  th.appendChild(txt);
+  tr.append(th);
+}
 
 /*This creates the totals for each store of the day */
 var totalsHead = document.createElement('th');
@@ -134,14 +134,14 @@ StoreName.prototype.rowCreate = function (){
 /* This creates the table.*/
 function tableCreate(){
   for (var i = 0; i < stores.length; i++)
-  stores[i].rowCreate();
-};
+    stores[i].rowCreate();
+}
 
 // This creates the totals row.
 function totalsRowCreate(){
   var tfoot= document.getElementsByTagName('tfoot')[0];
   while (tfoot.firstChild){
-    tfoot.removeChild(tfoot.firstChild)
+    tfoot.removeChild(tfoot.firstChild);
   }
 
   var tr = document.createElement('tr');
@@ -151,17 +151,17 @@ function totalsRowCreate(){
   tr.appendChild(td);
   tfoot.appendChild(tr);
   for (i=0; i < 15; i++){
-  var td = document.createElement('td');
-  var txt = document.createTextNode(totals[i]);
+    td = document.createElement('td');
+    txt = document.createTextNode(totals[i]);
+    td.appendChild(txt);
+    tr.appendChild(td);
+  }
+  var total = totalsAllStores();
+  td = document.createElement('td');
+  txt = document.createTextNode(total);
   td.appendChild(txt);
   tr.appendChild(td);
 }
-  var total = totalsAllStores()
-  var td = document.createElement('td');
-  var txt = document.createTextNode(total);
-  td.appendChild(txt);
-  tr.appendChild(td);
-};
 
 function handleLocationCreateSubmit(event){
   // stop the browser from reloading
@@ -177,18 +177,16 @@ function handleLocationCreateSubmit(event){
   var avgCookies = form.locationAvgCookiesSold.value;
 
   // then clear the values
-    function clearTable(){
-  form.locationName.value = '';
-  form.locationMinCustomers.value = '';
-  form.locationMaxCustomers.value = '';
-  form.locationAvgCookiesSold.value = '';
-}
+  function clearTable(){
+    form.locationName.value = '';
+    form.locationMinCustomers.value = '';
+    form.locationMaxCustomers.value = '';
+    form.locationAvgCookiesSold.value = '';
+  }
 
 /* This is creating a new store out of the inputs given from user */
-  var storeName = window[locationName,minCustomers,maxCustomers,avgCookies];
   var newLocation = new StoreName(locationName,minCustomers,maxCustomers,avgCookies);
   stores.push(newLocation);
-  console.log(newLocation);
   GenStoreCookies(newLocation);
   totalsCreate();
   newLocation.rowCreate();
