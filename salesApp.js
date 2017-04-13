@@ -1,133 +1,182 @@
 'use strict'
 
-var firstandPike = {
-  min:[23],
-  max:[65],
-  avgCookies:[6.3],
-  numOfCookies:[]
+/*This function creates hours and gives them 'am' or 'pm'. */
+function hours(hour){
+  if (hour == 0){
+    hour = '12am'
   }
+  else if (hour < 12){
+    hour = hour + 'am'
+  }
+  else if (hour == 12){
+    hour = '12pm'
+  }
+  else {
+    hour = (hour - 12) + 'pm'
+  }
+  return hour
+}
 
+/*This function creates a random number within the range given. */
 function getRandomInt(min,max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max-min)) + min;
-}
-var hours = ['6am:','7am:','8am:','9am:','10am:','11am:','12pm:',
-'1pm:','2pm:','3pm:','4pm:','5pm:','6pm:','7pm:','8pm:']
-
-for (var i = 0; i < 15; i++) {
-  var avgFirstandPike = getRandomInt(firstandPike.min,firstandPike.max);
-  var pikeCookies = avgFirstandPike * firstandPike.avgCookies;
-  firstandPike.numOfCookies.push(pikeCookies);
+  var total = Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(total)
 }
 
-var seaTacAirport = {
-  min:[3],
-  max:[24],
-  avgCookies:[1.2],
-  numOfCookies:[],
+/* This is a constructor to create a new object per store */
+function StoreName(name,min,max,avgCookies){
+  this.title = name
+  this.min = min;
+  this.max = max;
+  this.avgCookies = avgCookies;
+  this.starthour = 8;
+  this.closehour = 20;
+  this.numOfCookies = [];
 }
 
-for (var i = 0; i < 15; i++) {
-  var avgseaTac = getRandomInt(seaTacAirport.min,seaTacAirport.max);
-  var seaTacCookies = avgseaTac * seaTacAirport.avgCookies;
-  seaTacAirport.numOfCookies.push(seaTacCookies);
+/* This uses the constructor to create stores, and an array to store the stores. */
+var pikeStore = new StoreName('1st and Pike',23,65,6.3);
+var airportStore = new StoreName('Seattle Tacoma Airport',3,24,1.2);
+var centerStore = new StoreName('Seattle Center', 11,38,3.7);
+var capitolStore = new StoreName('Seattle Capitol',20,38,2.3);
+var alkiStore = new StoreName('Alki', 2,16,4.6);
+var stores = [pikeStore, airportStore, centerStore, capitolStore, alkiStore]
+
+/* This function generates the number of cookies per hour */
+function GenStoreCookies(stores){
+  for (var i = 0; i < 15; i++){
+    var cookiesPerHour = Math.floor(stores.avgCookies * getRandomInt(stores.min,stores.max));
+    stores.numOfCookies.push(cookiesPerHour);
+  }
 }
 
-var seattleCenter = {
-  min:[11],
-  max:[38],
-  avgCookies:[3.7],
-  numOfCookies:[],
+/* This generates the number of cookies per hour for each store */
+for (var i = 0; i < stores.length; i++){
+  var newCookiesHour = GenStoreCookies(stores[i])
+  stores[i].numOfCookies.push(newCookiesHour)
 }
 
-for (var i = 0; i < 15; i++) {
-  var avgseaCenter = getRandomInt(seattleCenter.min,seattleCenter.max);
-  var seattleCenterCookies = avgseaCenter * seattleCenter.avgCookies;
-  seattleCenter.numOfCookies.push(seattleCenterCookies);
-}
-var capitolHill = {
-  min:[20],
-  max:[38],
-  avgCookies:[2.3],
-  numOfCookies:[],
-}
-
-for (var i = 0; i < 15; i++) {
-  var avgcapHill = getRandomInt(capitolHill.min,capitolHill.max);
-  var capitolHillCookies = avgcapHill * capitolHill.avgCookies;
-  capitolHill.numOfCookies.push(capitolHillCookies);
-
-}
-var alki = {
-  min:[2],
-  max:[16],
-  avgCookies:[4.6],
-  numOfCookies:[],
+/* This creates the totals of each hour. */
+var totals = [];
+function totalsCreate(){
+  totals = []
+  for (var i = 0; i < 15; i++){
+    var hourTotals = 0
+    for(var x = 0; x < stores.length; x++)
+    hourTotals += stores[x].numOfCookies[i]
+    totals.push(hourTotals)
+  }
+  console.log(totals)
 }
 
-for (var i = 0; i < 15; i++) {
-  var avgalki = getRandomInt(alki.min,alki.max);
-  var alkiCookies = avgalki * alki.avgCookies;
-  alki.numOfCookies.push(alkiCookies);
+
+/*This creates empty cell for the heading and the table itself.*/
+var table = document.createElement('table');
+var tableHead= document.createElement('thead');
+var tableBody = document.createElement('tbody');
+var tableFoot = document.createElement('tfoot');
+var tr = document.createElement('tr')
+var th = document.createElement('th');
+var txt = document.createTextNode(' ');
+document.body.appendChild(table);
+table.appendChild(tableHead)
+table.appendChild(tableBody)
+table.appendChild(tableFoot)
+tableHead.appendChild(tr)
+th.innerText = txt
+tr.appendChild(th)
+/*This creates the hours cells for the heading */
+// function tableHeadCreate(){
+  for (var i = 0; i < 15; i++){
+    var th = document.createElement('th');
+    var txt = document.createTextNode(hours(i + 6));
+    th.appendChild(txt);
+    tr.append(th);
+  }
+
+/* This creates the rows for the table and appends them. */
+StoreName.prototype.rowCreate = function (){
+  // var text4 = document.createTextNode('');
+  // table.appendChild(text4);
+  var tbody = document.getElementsByTagName('tbody')[0];
+  var tr = document.createElement('tr');
+  var td = document.createElement('td');
+  var txt = document.createTextNode(this.title);
+  td.appendChild(txt);
+  tr.appendChild(td);
+  tbody.appendChild(tr);
+  for (var i = 0; i < 15; i++){
+    td = document.createElement('td');
+    txt = document.createTextNode(this.numOfCookies[i]);
+    td.appendChild(txt);
+    tr.appendChild(td);
+  }
 }
 
-var totalcookies = 0;
-var firstandPikeUl = document.getElementById('firstandPike');
-var firstandPikeLi;
-for (var i = 0; i < 15; i++){
-  totalcookies = totalcookies + firstandPike.numOfCookies[i];
-  firstandPikeLi = document.createElement('li');
-  firstandPikeLi.setAttribute('class','firstandPike.numOfCookies');
-  firstandPikeLi.textContent = hours[i] + ' ' + firstandPike.numOfCookies[i].toFixed(2) + ' cookies.'
-  firstandPikeUl.appendChild(firstandPikeLi);
-}
-firstandPikeLi.textContent = 'Total number of cookies: ' + totalcookies
 
-totalcookies = 0;
-var seaTacAirportUl = document.getElementById('seaTacAirport');
-var seaTacAirportLi;
-for (var i = 0; i < 15; i++){
-  totalcookies = totalcookies + seaTacAirport.numOfCookies[i];
-  seaTacAirportLi = document.createElement('li');
-  seaTacAirportLi.setAttribute('class','firstandPike.numOfCookies');
-  seaTacAirportLi.textContent = hours[i] + ' ' + seaTacAirport.numOfCookies[i].toFixed(2) + ' cookies.'
-  seaTacAirportUl.appendChild(seaTacAirportLi);
+function tableCreate(){
+  for (var i = 0; i < stores.length; i++)
+  stores[i].rowCreate();
 }
-seaTacAirportLi.textContent = 'Total number of cookies: ' + totalcookies
 
-totalcookies = 0;
-var seattleCenterUl = document.getElementById('seattleCenter');
-var seattleCenterLi;
-for (var i = 0; i < 15; i++){
-  totalcookies = totalcookies + seattleCenter.numOfCookies[i];
-  seattleCenterLi = document.createElement('li');
-  seattleCenterLi.setAttribute('class','seattleCenter.numOfCookies');
-  seattleCenterLi.textContent = hours[i] + ' ' + seattleCenter.numOfCookies[i].toFixed(2) + ' cookies.'
-  seattleCenterUl.appendChild(seattleCenterLi);
-}
-seattleCenterLi.textContent = 'Total number of cookies: ' + totalcookies
 
-totalcookies = 0;
-var capitolHillUl = document.getElementById('capitolHill');
-var capitolHillLi;
-for (var i = 0; i < 15; i++){
-  totalcookies = totalcookies + capitolHill.numOfCookies[i];
-  capitolHillLi = document.createElement('li');
-  capitolHillLi.setAttribute('class','capitolHill.numOfCookies');
-  capitolHillLi.textContent = hours[i] + ' ' + capitolHill.numOfCookies[i].toFixed(2) + ' cookies.'
-  capitolHillUl.appendChild(capitolHillLi);
+// This creates the totals row.
+function totalsRowCreate(){
+  var tfoot= document.getElementsByTagName('tfoot')[0];
+  while (tfoot.firstChild){
+    tfoot.removeChild(tfoot.firstChild)
+  };
+  var tr = document.createElement('tr');
+  var td = document.createElement('td');
+  var txt = document.createTextNode('Totals');
+  td.appendChild(txt);
+  tr.appendChild(td);
+  tfoot.appendChild(tr);
+  for (i=0; i < 15; i++){
+  var td = document.createElement('td');
+  var txt = document.createTextNode(totals[i]);
+  td.appendChild(txt);
+  tr.appendChild(td);
+  }
 }
-capitolHillLi.textContent = 'Total number of cookies: ' + totalcookies
 
-totalcookies = 0;
-var alkiUl = document.getElementById('alki');
-var alkiLi;
-for (var i = 0; i < 15; i++){
-  totalcookies = totalcookies + alki.numOfCookies[i];
-  alkiLi = document.createElement('li');
-  alkiLi.setAttribute('class','alki.numOfCookies');
-  alkiLi.textContent = hours[i] + ' ' + alki.numOfCookies[i].toFixed(2) + ' cookies.'
-  alkiUl.appendChild(alkiLi);
+// tableHeadCreate();
+tableCreate()
+totalsCreate()
+totalsRowCreate()
+function handleLocationCreateSubmit(event){
+  // stop the browser from reloading
+  event.preventDefault();
+
+  // event.target is always whatever element you added the EventListener to ('aka productCreateFrom')
+  var form = event.target;
+
+  // grab the values
+  var locationName = form.locationName.value;
+  var minCustomers = form.locationMinCustomers.value;
+  var maxCustomers = form.locationMaxCustomers.value;
+  var avgCookies = form.locationAvgCookiesSold.value;
+
+  // then clear the values
+function clearTable(){
+  form.locationName.value = '';
+  form.locationMinCustomers.value = '';
+  form.locationMaxCustomers.value = '';
+  form.locationAvgCookiesSold.value = '';
 }
-alkiLi.textContent = 'Total number of cookies: ' + totalcookies
+clearTable()
+/* This is creating a new store out of the inputs given from user */
+  var storeName = window[locationName,minCustomers,maxCustomers,avgCookies];
+  var newLocation = new StoreName(locationName,minCustomers,maxCustomers,avgCookies);
+  stores.push(newLocation)
+  console.log(newLocation)
+  GenStoreCookies(newLocation)
+  totalsCreate()
+  newLocation.rowCreate()
+  totalsRowCreate()
+  clearTable()
+}
+var locationCreateForm = document.getElementById('location-create');
+locationCreateForm.addEventListener('submit', handleLocationCreateSubmit)

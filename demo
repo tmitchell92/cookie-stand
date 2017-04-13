@@ -1,0 +1,79 @@
+'use strict';
+
+function GroceryItem(name, price){
+  this.name = name;
+  this.price = price;
+}
+
+
+function GroceryList(title, author){
+  this.title = title;
+  this.author = author;
+  this.items = [];
+  this.date = new Date();
+}
+
+GroceryList.prototype.addItem = function(itemName, price){
+  var item = new GroceryItem(itemName, price);
+  this.items.push(item);
+};
+
+GroceryList.prototype.getTable = function(){
+  var table = document.createElement('table');
+
+  var titleRow = document.createElement('tr');
+  var titleHeading = document.createElement('th');
+  titleHeading.textContent = this.title;
+  titleRow.appendChild(titleHeading);
+  table.appendChild(titleRow);
+
+  var itemRow, itemName, itemPrice;
+  // create a new row for each item and add it to the table
+  for(var i = 0; i < this.items.length; i++){
+    itemRow = document.createElement('tr');
+    itemName = document.createElement('td');
+    itemName.textContent = this.items[i].name;
+    itemPrice = document.createElement('td');
+    itemPrice.textContent = this.items[i].price;
+    itemRow.appendChild(itemName);
+    itemRow.appendChild(itemPrice);
+    table.appendChild(itemRow);
+  }
+
+  return table;
+};
+
+var xmasListDiv = document.getElementById('xmas');
+var xmas = new GroceryList('xmas', 'slugbyte');
+xmasListDiv.appendChild(xmas.getTable());
+
+var hollowListDiv = document.getElementById('hollow');
+var hollow = new GroceryList('hollow', 'sweet');
+hollowListDiv.appendChild(hollow.getTable());
+
+function handleLocationCreateSubmit(event){
+  // stop the browser from reloading
+  event.preventDefault();
+
+  // event.target is allways whatever element you added the EventListener to ('aka productCreateFrom')
+  var form = event.target;
+
+  // grab the values
+  var name = form.productName.value;
+  var price = form.productPrice.value;
+  var list = form.listSelect.value;
+
+  // then clear the values
+  form.productName.value = '';
+  form.productPrice.value = '';
+
+  var groceryList = window[list];
+  groceryList.addItem(name, price);
+
+  var div = document.getElementById(list);
+  div.textContent = '';
+  div.appendChild(groceryList.getTable());
+}
+
+var locationCreateForm = document.getElementById('location-create');
+locationCreateForm.addEventListener('submit', handleLocationCreateSubmit);

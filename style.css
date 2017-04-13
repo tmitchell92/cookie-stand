@@ -5,21 +5,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-weight: normal;
+  background-color: green
+}
+table, table * {
+  border: 5px solid black;
 }
 
-html, body {
-  height: 100%;
-  float:right;
-  background-color: salmon;
-}
-
-#box1{
-  float:left;
-  background-color: green;
-}
-#box2{
-  float:left;
-  background-color: red;
+img {
+    opacity: 0.5;
 }
 .clearfix::after {
     content: "";

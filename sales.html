@@ -1,19 +1,21 @@
 "<!DOCTYPE html>"
 <html>
 <head>
+  <title> Salmon Cookies </title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 id='title'> 1st and Pike </hi>
-  <ul id="firstandPike"></ul>
-  <h1 id='title'> SeaTacAirport </hi>
-  <ul id="seaTacAirport"></ul>
-  <h1 id='title'> Seattle Center </hi>
-  <ul id="seattleCenter"></ul>
-  <h1 id='title'> Capitol Hill </hi>
-  <ul id="capitolHill"></ul>
-  <h1 id='title'> Alki </hi>
-  <ul id="alki"></ul>
-  <link rel="stylesheet" href="style.css">
+  <div id='app'>
+    <form id="location-create">
+      <input name="locationName" type="text" placeholder="name" />
+      <input name="locationMinCustomers" type="text" placeholder="min" />
+      <input name="locationMaxCustomers" type="text" placeholder="max" />
+      <input name="locationAvgCookiesSold" type="text" placeholder="avg" />
+      <button type="submit"> add location </button>
+    </form>
+    <div id='table'></div>
+    <img src="salmon.png"></img>
+  </div>
   <script src="salesApp.js"></script>
 </body>
 </html>
