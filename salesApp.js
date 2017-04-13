@@ -44,10 +44,6 @@ var capitolStore = new StoreName('Seattle Capitol',20,38,2.3);
 var alkiStore = new StoreName('Alki', 2,16,4.6);
 var stores = [pikeStore, airportStore, centerStore, capitolStore, alkiStore]
 
-// Stores.prototype.addLocation = function(name,min,max,avgCookies){
-//   var locationName = new StoreName(name,min,max,avgCookies);
-//   this.stores.push(locationName);
-// }
 /* This function generates the number of cookies per hour */
 function GenStoreCookies(stores){
   for (var i = 0; i < 15; i++){
@@ -64,66 +60,92 @@ for (var i = 0; i < stores.length; i++){
 
 /* This creates the totals of each hour. */
 var totals = [];
-for (var i = 0; i < 15; i++){
-  totals[i] = stores[0].numOfCookies[i] + stores[1].numOfCookies[i] + stores[2].numOfCookies[i] + stores[3].numOfCookies[i] + stores[4].numOfCookies[i];
+function totalsCreate(){
+  totals = []
+  for (var i = 0; i < 15; i++){
+    var hourTotals = 0
+    for(var x = 0; x < stores.length; x++)
+    hourTotals += stores[x].numOfCookies[i]
+    totals.push(hourTotals)
+  }
+  console.log(totals)
 }
+
 
 /*This creates empty cell for the heading and the table itself.*/
 var table = document.createElement('table');
-var tableHead= document.createElement('th');
+var tableHead= document.createElement('thead');
+var tableBody = document.createElement('tbody');
+var tableFoot = document.createElement('tfoot');
+var tr = document.createElement('tr')
 var th = document.createElement('th');
 var txt = document.createTextNode(' ');
-th.appendChild(txt);
-table.append(th);
-
+document.body.appendChild(table);
+table.appendChild(tableHead)
+table.appendChild(tableBody)
+table.appendChild(tableFoot)
+tableHead.appendChild(tr)
+th.innerText = txt
+tr.appendChild(th)
 /*This creates the hours cells for the heading */
-StoreName.prototype.tableHeadCreate = function (){
+// function tableHeadCreate(){
   for (var i = 0; i < 15; i++){
     var th = document.createElement('th');
     var txt = document.createTextNode(hours(i + 6));
     th.appendChild(txt);
-    table.append(th);
+    tr.append(th);
   }
-}
 
 /* This creates the rows for the table and appends them. */
 StoreName.prototype.rowCreate = function (){
-  var text4 = document.createTextNode('');
-  table.appendChild(text4);
+  // var text4 = document.createTextNode('');
+  // table.appendChild(text4);
+  var tbody = document.getElementsByTagName('tbody')[0];
   var tr = document.createElement('tr');
-  var text1 = document.createTextNode(this.title);
-  var td1 = document.createElement('td');
-  td1.appendChild(text1);
-  tr.appendChild(td1);
+  var td = document.createElement('td');
+  var txt = document.createTextNode(this.title);
+  td.appendChild(txt);
+  tr.appendChild(td);
+  tbody.appendChild(tr);
   for (var i = 0; i < 15; i++){
-    var td2 = document.createElement('td');
-    var text2 = document.createTextNode(this.numOfCookies[i]);
-    td2.appendChild(text2);
-    tr.appendChild(td2);
-    table.append(tr);
+    td = document.createElement('td');
+    txt = document.createTextNode(this.numOfCookies[i]);
+    td.appendChild(txt);
+    tr.appendChild(td);
   }
-  document.body.appendChild(table);
 }
 
-pikeStore.tableHeadCreate();
-pikeStore.rowCreate();
-airportStore.rowCreate();
-centerStore.rowCreate();
-capitolStore.rowCreate();
-alkiStore.rowCreate();
+
+function tableCreate(){
+  for (var i = 0; i < stores.length; i++)
+  stores[i].rowCreate();
+}
+
 
 // This creates the totals row.
-var td4 = document.createElement('td')
-var text4 = document.createTextNode('Totals')
-td4.appendChild(text4)
-table.appendChild(td4)
-for (i=0; i < 15; i++){
-var td3 = document.createElement('td')
-var text3 = document.createTextNode(totals[i])
-td3.appendChild(text3)
-table.appendChild(td3)
+function totalsRowCreate(){
+  var tfoot= document.getElementsByTagName('tfoot')[0];
+  while (tfoot.firstChild){
+    tfoot.removeChild(tfoot.firstChild)
+  };
+  var tr = document.createElement('tr');
+  var td = document.createElement('td');
+  var txt = document.createTextNode('Totals');
+  td.appendChild(txt);
+  tr.appendChild(td);
+  tfoot.appendChild(tr);
+  for (i=0; i < 15; i++){
+  var td = document.createElement('td');
+  var txt = document.createTextNode(totals[i]);
+  td.appendChild(txt);
+  tr.appendChild(td);
+  }
 }
 
+// tableHeadCreate();
+tableCreate()
+totalsCreate()
+totalsRowCreate()
 function handleLocationCreateSubmit(event){
   // stop the browser from reloading
   event.preventDefault();
@@ -138,18 +160,23 @@ function handleLocationCreateSubmit(event){
   var avgCookies = form.locationAvgCookiesSold.value;
 
   // then clear the values
+function clearTable(){
   form.locationName.value = '';
   form.locationMinCustomers.value = '';
   form.locationMaxCustomers.value = '';
   form.locationAvgCookiesSold.value = '';
-
+}
+clearTable()
 /* This is creating a new store out of the inputs given from user */
   var storeName = window[locationName,minCustomers,maxCustomers,avgCookies];
   var newLocation = new StoreName(locationName,minCustomers,maxCustomers,avgCookies);
+  stores.push(newLocation)
   console.log(newLocation)
   GenStoreCookies(newLocation)
+  totalsCreate()
   newLocation.rowCreate()
+  totalsRowCreate()
+  clearTable()
 }
-
 var locationCreateForm = document.getElementById('location-create');
 locationCreateForm.addEventListener('submit', handleLocationCreateSubmit)
