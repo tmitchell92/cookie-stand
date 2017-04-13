@@ -34,6 +34,7 @@ function StoreName(name,min,max,avgCookies){
   this.starthour = 8;
   this.closehour = 20;
   this.numOfCookies = [];
+  this.totalsStore = 0;
 }
 
 /* This uses the constructor to create stores, and an array to store the stores. */
@@ -49,6 +50,7 @@ function GenStoreCookies(stores){
   for (var i = 0; i < 15; i++){
     var cookiesPerHour = Math.floor(stores.avgCookies * getRandomInt(stores.min,stores.max));
     stores.numOfCookies.push(cookiesPerHour);
+    stores.totalsStore = stores.totalsStore + cookiesPerHour;
   }
 };
 
@@ -70,6 +72,13 @@ function totalsCreate(){
   }
 };
 
+function totalsAllStores(){
+  var total = 0;
+  for (var x = 0; x < stores.length; x++){
+    total = total + stores[x].totalsStore;
+  }
+  return total;
+}
 
 /*This creates empty cell for the heading and the table itself.*/
 var table = document.createElement('table');
@@ -93,6 +102,12 @@ tr.appendChild(th);
     tr.append(th);
   }
 
+/*This creates the totals for each store of the day */
+var totalsHead = document.createElement('th');
+var totalsHeadTxt = document.createTextNode('Totals');
+totalsHead.appendChild(totalsHeadTxt);
+tr.appendChild(totalsHead);
+
 /* This creates the rows for the table and appends them. */
 StoreName.prototype.rowCreate = function (){
   var tbody = document.getElementsByTagName('tbody')[0];
@@ -108,8 +123,15 @@ StoreName.prototype.rowCreate = function (){
     td.appendChild(txt);
     tr.appendChild(td);
   }
+  var totals = document.createElement('td');
+  var totalsNum = document.createTextNode(this.totalsStore);
+  totals.appendChild(totalsNum);
+  tr.appendChild(totals);
 };
 
+
+
+/* This creates the table.*/
 function tableCreate(){
   for (var i = 0; i < stores.length; i++)
   stores[i].rowCreate();
@@ -121,6 +143,7 @@ function totalsRowCreate(){
   while (tfoot.firstChild){
     tfoot.removeChild(tfoot.firstChild)
   }
+
   var tr = document.createElement('tr');
   var td = document.createElement('td');
   var txt = document.createTextNode('Totals');
@@ -132,7 +155,12 @@ function totalsRowCreate(){
   var txt = document.createTextNode(totals[i]);
   td.appendChild(txt);
   tr.appendChild(td);
-  }
+};
+  var total = totalsAllStores()
+  var td = document.createElement('td');
+  var txt = document.createTextNode(total);
+  td.appendChild(txt);
+  tr.appendChild(td);
 };
 
 function handleLocationCreateSubmit(event){
