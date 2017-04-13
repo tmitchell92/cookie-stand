@@ -5,16 +5,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h1 class="business-name"> Pat's Salmon Cookies </h1>
+  <div class='top-banner'>
+    <img src="salmon.png"></img>
+  </div>
   <div id='app'>
     <form id="location-create">
+     <fieldset><legend> New Store Info </legend>
       <input name="locationName" type="text" placeholder="name" />
-      <input name="locationMinCustomers" type="text" placeholder="min" />
-      <input name="locationMaxCustomers" type="text" placeholder="max" />
-      <input name="locationAvgCookiesSold" type="text" placeholder="avg" />
+      <input name="locationMinCustomers" type="number" placeholder="min" />
+      <input name="locationMaxCustomers" type="number" placeholder="max" />
+      <input name="locationAvgCookiesSold" type="number" placeholder="avg" />
       <button type="submit"> add location </button>
+    </fieldset>
     </form>
     <div id='table'></div>
-    <img src="salmon.png"></img>
   </div>
   <script src="salesApp.js"></script>
 </body>

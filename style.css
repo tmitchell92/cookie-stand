@@ -2,19 +2,80 @@
 
 * {
   width: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   font-weight: normal;
-  background-color: green
+  max-width: 960px;
+  background-color: green;
+  font-family: Courier;
 }
+
+h1 {
+  text-align: center;
+
+}
+#app {
+  padding: 20px;
+  width: 250px;
+  margin: 0 auto;
+}
+
 table, table * {
   border: 5px solid black;
 }
 
 img {
-    opacity: 0.5;
+    background-position: center;
+    height: 200px;
+    width: 100%;
+    box-sizing: border-box;
 }
+
+input[type="text"], input[type="number"] {
+  width: 200px;
+  background-color:white;
+}
+
+legend {
+  background-color: salmon;
+  border: 3px solid black;
+}
+
+button {
+  background-color: grey;
+}
+
+fieldset {
+  border: solid black;
+}
+
+table {
+  border: 2px solid black;
+  height: 200px;
+  margin: 0 auto;
+}
+th, tr {
+  border: 1px solid black;
+  text-align: center;
+  background-color: white;
+
+}
+td {
+  border: 1px solid black;
+  text-align: center;
+  width: 40px;
+  height: 30px;
+  padding: 5px;
+  background-color: white;
+}
+
+.top-banner {
+  position: relative;
+  box-sizing: border-box;
+  border: 2px solid black;
+}
+
 .clearfix::after {
     content: "";
     clear: both;

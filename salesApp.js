@@ -79,7 +79,8 @@ var tableBody = document.createElement('tbody');
 var tableFoot = document.createElement('tfoot');
 var tr = document.createElement('tr')
 var th = document.createElement('th');
-var txt = document.createTextNode(' ');
+var emptyCell = document.createElement('th');
+var txt = document.createTextNode('Hours');
 document.body.appendChild(table);
 table.appendChild(tableHead)
 table.appendChild(tableBody)
