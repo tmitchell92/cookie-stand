@@ -12,8 +12,8 @@ table, table * {
   border: 5px solid black;
 }
 
-#table {
-  float: left;
+img {
+    opacity: 0.5;
 }
 .clearfix::after {
     content: "";
