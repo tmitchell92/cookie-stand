@@ -79,17 +79,14 @@ var tableBody = document.createElement('tbody');
 var tableFoot = document.createElement('tfoot');
 var tr = document.createElement('tr')
 var th = document.createElement('th');
-var emptyCell = document.createElement('th');
-var txt = document.createTextNode('Hours');
 document.body.appendChild(table);
 table.appendChild(tableHead)
 table.appendChild(tableBody)
 table.appendChild(tableFoot)
 tableHead.appendChild(tr)
-th.innerText = txt
 tr.appendChild(th)
+
 /*This creates the hours cells for the heading */
-// function tableHeadCreate(){
   for (var i = 0; i < 15; i++){
     var th = document.createElement('th');
     var txt = document.createTextNode(hours(i + 6));
@@ -99,8 +96,6 @@ tr.appendChild(th)
 
 /* This creates the rows for the table and appends them. */
 StoreName.prototype.rowCreate = function (){
-  // var text4 = document.createTextNode('');
-  // table.appendChild(text4);
   var tbody = document.getElementsByTagName('tbody')[0];
   var tr = document.createElement('tr');
   var td = document.createElement('td');
@@ -116,12 +111,10 @@ StoreName.prototype.rowCreate = function (){
   }
 }
 
-
 function tableCreate(){
   for (var i = 0; i < stores.length; i++)
   stores[i].rowCreate();
 }
-
 
 // This creates the totals row.
 function totalsRowCreate(){
@@ -129,6 +122,7 @@ function totalsRowCreate(){
   while (tfoot.firstChild){
     tfoot.removeChild(tfoot.firstChild)
   };
+
   var tr = document.createElement('tr');
   var td = document.createElement('td');
   var txt = document.createTextNode('Totals');
@@ -143,10 +137,6 @@ function totalsRowCreate(){
   }
 }
 
-// tableHeadCreate();
-tableCreate()
-totalsCreate()
-totalsRowCreate()
 function handleLocationCreateSubmit(event){
   // stop the browser from reloading
   event.preventDefault();
@@ -179,5 +169,11 @@ clearTable()
   totalsRowCreate()
   clearTable()
 }
+
+/* This creates the starting table */
+tableCreate()
+totalsCreate()
+totalsRowCreate()
+
 var locationCreateForm = document.getElementById('location-create');
 locationCreateForm.addEventListener('submit', handleLocationCreateSubmit)
